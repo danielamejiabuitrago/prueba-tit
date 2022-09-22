@@ -1,0 +1,92 @@
+.main-header {
+    position: relative;
+    user-select: none;
+    background-color: $color-white;
+    transition: all .1s ease;;
+}
+.main-header_container {
+    max-width: 1248px;
+    padding: calculateRem(22px);
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    align-items: center;
+}
+.main-header_logo_link {
+    display: flex;
+    align-items: center;
+}
+.main-header_mobile {
+    display: none;
+}
+.main-header_nav-primary {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.main-header_nav-primary_nav {
+    display: flex;
+}
+.main-header_nav-primary_list {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: stretch;
+}
+.main-header_nav-primary_item {
+    display: flex;
+    align-items: stretch;
+    margin: 0 calculateRem(2px);
+    &.active {
+        .main-header_nav-primary_item_link {
+            background-color: $c-primary-dark;
+            color: $color-white;
+        }
+    }
+}
+.main-header_nav-primary_item_link {
+    @include font-size($f-size-sm);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    color: $c-text;
+    font-weight: $f-weight-normal;
+    padding: calculateRem(14px) calculateRem(30px);
+    text-decoration: none;
+    &:hover {
+        background-color: $c-primary-dark;
+        color: $color-white;
+    }
+}
+
+@media #{$until-tablet-portrait} {
+    .main-header_container {
+        justify-content: space-between;
+    }
+    .main-header_mobile {
+        display: block;
+        cursor: pointer;
+    }
+    .main-header_nav-primary {
+        width: 100%;
+        display: none;
+        &.active {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            background-color: $color-white;
+            top: 100%;
+            left: 0;
+            .main-header_nav-primary_list {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

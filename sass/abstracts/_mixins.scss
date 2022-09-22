@@ -1,0 +1,256 @@
+@charset 'UTF-8';
+
+/* ---------------------------------------------------------- */
+//  Font Size
+//	-------
+//	Make use of calculateRem function to convert pixels to rem unit for `font-size` property
+//
+/* ---------------------------------------------------------- */
+
+@mixin font-size($size) {
+	font-size: calculateRem($size);
+}
+
+/* ---------------------------------------------------------- */
+//  Clearfix
+//	-------
+//	Provides an easy way to include a clearfix for containing floats.
+//
+
+@mixin clearfix {
+	&::after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+}
+
+/* ---------------------------------------------------------- */
+//  Ellipsis
+//	-------
+//	Truncates text and adds an ellipsis to represent overflow.
+//
+@mixin ellipsis($display: inline-block, $width: 100%) {
+	display: $display;
+	max-width: $width;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+}
+
+/* ---------------------------------------------------------- */
+//  Icon Fonts
+//	-------
+//	Easily add icons fonts to a html element.
+//
+/* ---------------------------------------------------------- */
+
+@mixin iconfont($icon, $pos: before, $color: false) {
+	// mixin arguments validation
+	@if not index('before' 'after', $pos) {
+		@error '`#{$pos}` is not a valid value for the `$pos` argument in ' + 'the `iconfont` mixin. Must be either `before`, `after` or `null`.';
+	}
+
+	@else if $pos == before {
+		&::before {
+			content: $icon;
+			display: inline-block;
+			font-family: $f-icons;
+			font-weight: normal;
+			line-height: 1;
+			@if $color {
+				color: $color;
+			}
+		}
+	} @else if $pos == after {
+		&::after {
+			content: $icon;
+			display: inline-block;
+			font-family: $f-icons;
+			font-weight: normal;
+			line-height: 1;
+			@if $color {
+				color: $color;
+			}
+		}
+	} @else if $pos == null {
+		content: $icon;
+		display: inline-block;
+		font-family: $f-icons;
+		font-weight: normal;
+		line-height: 1;
+	}
+}
+
+
+//  + Convert px into rem
+// -------
+$parentSize: 16px;
+
+@function calculateRem($size) {
+	// @if unitless($size) { TODO: validate unit calculateRem function
+	// 	@warn 'Assuming value `#{$size}` to be in pixels; attempting to convert it.';
+	// 	$size: $size * 1px;
+	// }
+
+	$remSize: $size / $parentSize;
+	@return #{$remSize}rem;
+}
+
+/* ---------------------------------------------------------- */
+//  Buttons
+//	-------
+//	Mixin that easialy set or change buttons styles, as well as :hover, :focus,
+// 	and disabled options for all buttons
+//	Buttons core styles:
+// 		btn-action, btn-primary
+//
+//	-------
+//	Variables path: sass/abstracts/variables.scss
+/* ---------------------------------------------------------- */
+
+@mixin button-generator(
+	// default state
+	$color,
+	$background,
+	$bordercolor,
+
+	// focus and hover state
+	$color-hover,
+	$background-hover,
+	$bordercolor-hover,
+
+	// disabled state
+	$color-disabled,
+	$background-disabled,
+	$bordercolor-disabled,
+	$opacity-disabled
+) {
+	color: $color;
+	border-color: $bordercolor;
+	background-color: $background;
+	// state: focus and hover
+	&:focus,
+	&:hover {
+		color: $color-hover;
+		border-color: $bordercolor-hover;
+		background-color: $background-hover;
+	}
+	// state: disabled
+	&[disabled='disabled'],
+	&.disabled,
+	&[disabled='disabled']:hover {
+		color: $color-disabled;
+		border-color: $bordercolor-disabled;
+		background-color: $background-disabled;
+		opacity: $opacity-disabled;
+		cursor: default;
+		user-select: none;
+	}
+}
+// + Button
+// -------
+@mixin button {
+	@include font-size($button-fontsize);
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: $button-halign;
+	text-transform: $button-texttransform;
+	font-weight: $button-fontweight;
+	line-height: $button-lineheight;
+	padding: $button-padding;
+	border-radius: $button-border-radius;
+	border-width: $button-border-width;
+	border-style: solid;
+	cursor: pointer;
+	box-sizing: border-box;
+	transition: $button-transition;
+	&:focus,
+	&:hover {
+		@if $button-boxshadow-hover != 'none' {
+			box-shadow: $button-boxshadow-hover;
+		}
+	}
+}
+
+
+// + Button styles
+// -------
+@mixin btn-action {
+	@include button-generator(
+		// default state
+		$btn-action-color,
+		$btn-action-background,
+		$btn-action-bordercolor,
+
+		// focus and hover state
+		$btn-action-color-hover,
+		$btn-action-background-hover,
+		$btn-action-bordercolor-hover,
+
+		// disabled state
+		$btn-action-color-disabled,
+		$btn-action-background-disabled,
+		$btn-action-bordercolor-disabled,
+		$btn-action-opacity-disabled
+	);
+}
+@mixin btn-primary {
+	@include button-generator(
+		// default state
+		$btn-primary-color,
+		$btn-primary-background,
+		$btn-primary-bordercolor,
+
+		// focus and hover state
+		$btn-primary-color-hover,
+		$btn-primary-background-hover,
+		$btn-primary-bordercolor-hover,
+
+		// disabled state
+		$btn-primary-color-disabled,
+		$btn-primary-background-disabled,
+		$btn-primary-bordercolor-disabled,
+		$btn-primary-opacity-disabled
+	);
+}
+
+/* ---------------------------------------------------------- */
+//  Hide Visually
+//	-------
+//	Hides an element visually while still allowing the content to be accessible
+//	to assistive technology, e.g. screen readers. Passing `unhide` will reverse
+//	the affects of the hiding, which is handy for showing the element on focus,
+//	for example.
+/* ---------------------------------------------------------- */
+//
+/// @argument {string} $toggle [hide]
+///   Accepts `hide` or `unhide`. `unhide` reverses the affects of `hide`.
+
+@mixin hide-visually($toggle: 'hide') {
+	// mixin arguments validation
+	@if not index('hide' 'unhide', $toggle) {
+		@error '`#{$toggle}` is not a valid value for the `$toggle` argument in ' + 'the `hide-visually` mixin. Must be either `hide` or `unhide`.';
+
+	} @else if $toggle == 'hide' {
+		border: 0;
+		clip: rect(1px, 1px, 1px, 1px);
+		clip-path: inset(100%);
+		height: 1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	} @else if $toggle == 'unhide' {
+		clip: auto;
+		clip-path: none;
+		height: auto;
+		overflow: visible;
+		position: static;
+		white-space: inherit;
+		width: auto;
+	}
+}

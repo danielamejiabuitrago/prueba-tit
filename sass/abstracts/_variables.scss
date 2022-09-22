@@ -1,0 +1,128 @@
+// + Typography and colors site
+// -------
+
+// ++ colors
+
+$c-primary:         #fc758c;
+$c-primary-dark:    #ff5672;
+
+$c-text:            #a9a9a9;
+
+$color-white :      #fff;
+$color-black:       #000;
+$color-gray:        #c3d0d8;
+
+$font-name:       'Roboto';
+$font-filename:   $font-name;
+$font-sanserif:   'Roboto';
+$font-icon-name:  'newshore-icons';
+
+$f-body:    $font-name, sans-serif;
+$f-title:   $font-sanserif, sans-serif;
+$f-icons:   $font-icon-name;
+$f-button:  $f-title;
+
+// ++ Fonts size
+
+$f-size-xxs:    11px;
+$f-size-xs:     12px;
+$f-size-sm:     14px;
+$f-size:        16px;
+$f-size-md:     18px;
+$f-size-md-xl:  20px;
+$f-size-md-xxl: 24px;
+$f-size-lg:     28px;
+
+// ++ Fonts weight
+$f-weight-bold:     700;
+$f-weight-medium:   500;
+$f-weight-normal:   400;
+$f-weight-light:    300;
+
+
+// + Container
+$container-max-width: 1248px;
+
+// + Breakpoints
+// -------
+
+//## mobile
+$bp-mobile-small: calculateRem(480px);
+$bp-mobile-small-max: calculateRem(480px - 1);
+$bp-mobile: calculateRem(640px);
+$bp-mobile-max: calculateRem(640px - 1);
+$bp-mobile-min: calculateRem(480px + 1);
+//## tablet
+$bp-tablet-portrait: calculateRem(768px);
+$bp-tablet-portrait-max: calculateRem(768px - 1);
+$bp-tablet-portrait-min: calculateRem(640px + 1);
+$bp-tablet-landscape: calculateRem(992px);
+$bp-tablet-landscape-max: calculateRem(992px - 1);
+$bp-tablet-landscape-min: calculateRem(768px + 1);
+//## desktop
+$bp-desktop: calculateRem($container-max-width);
+$bp-desktop-max: calculateRem($container-max-width - 1);
+$bp-desktop-min: calculateRem(992px + 1);
+
+
+// + Media queries
+// -------
+$mobile-sm: '(min-width: #{$bp-mobile-small})';                         // >=480px
+$mobile: '(min-width: #{$bp-mobile})';                                  // >=640px
+$tablet-portrait: '(min-width: #{$bp-tablet-portrait})';                // >=768px
+$tablet-landscape: '(min-width: #{$bp-tablet-landscape})';              // >=992px
+$desktop: '(min-width: #{$bp-desktop})';                                // >=1248px
+
+$until-mobile-sm: '(max-width: #{$bp-mobile-small-max})';               // <480px
+$until-mobile: '(max-width: #{$bp-mobile-max})';                        // <640px
+$until-tablet-portrait: '(max-width: #{$bp-tablet-portrait-max})';      // <768px
+$until-tablet-landscape: '(max-width: #{$bp-tablet-landscape-max})';    // <992px
+$until-desktop: '(max-width: #{$bp-desktop-max})';                      // <1248px
+
+// + Button common
+// -------
+$button-fontfamily: $f-button;
+$button-fontsize: 20px;
+$button-texttransform: none;
+$button-fontweight: $f-weight-medium;
+$button-halign: center; // horizontal alignment - accepts justify-content values: flex-start, center and flex-end
+$button-lineheight: 1;
+$button-border-width: 2px;
+$button-border-radius: 0;
+$button-padding-top-bottom: 12px;
+$button-padding-left-right: 24px;
+$button-padding: calculateRem($button-padding-top-bottom) calculateRem($button-padding-left-right); // use variable for padding top and left above
+$button-transition: all .06s linear;
+$button-boxshadow-hover: 0 0 14px rgba($c-text, .9);
+
+// + Styles
+// ++ Action button (CTA)
+// default
+$btn-action-color: $c-primary;
+$btn-action-background: $color-white;
+$btn-action-bordercolor: $color-white;
+// focus and hover
+$btn-action-color-hover: $btn-action-color;
+$btn-action-background-hover: darken($btn-action-background, 14%);
+$btn-action-bordercolor-hover: $btn-action-background-hover;
+// disabled
+$btn-action-color-disabled: $btn-action-color;
+$btn-action-background-disabled: $btn-action-background;
+$btn-action-bordercolor-disabled: $btn-action-bordercolor;
+$btn-action-opacity-disabled: .34;
+
+// -------
+// ++ Primary button
+// default
+$btn-primary-color: $color-white;
+$btn-primary-background: $c-primary-dark;
+$btn-primary-bordercolor: $btn-primary-background;
+// focus and hover
+$btn-primary-color-hover: $btn-primary-color;
+$btn-primary-background-hover: lighten($btn-primary-background, 14%);
+$btn-primary-bordercolor-hover: $btn-primary-background-hover;
+// disabled
+$btn-primary-color-disabled: $btn-primary-color;
+$btn-primary-background-disabled: $btn-primary-background;
+$btn-primary-bordercolor-disabled: $btn-primary-bordercolor;
+$btn-primary-opacity-disabled: .34;

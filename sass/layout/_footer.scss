@@ -1,0 +1,28 @@
+// styles footer
+
+.main-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: calculateRem(40px);
+}
+.main-footer_copyright {
+   @include font-size($f-size-sm);
+    font-family: "Questrial", sans-serif;
+    color: $color-gray;
+    margin-bottom: calculateRem(50px);
+    letter-spacing: calculateRem(3px);
+    span {
+        color: $c-primary;
+    }
+}
+.socialmedia_list {
+    display: flex;
+}
+.socialmedia_list_item {
+    padding-right: calculateRem(10px);
+    .link_text {
+        @include hide-visually();
+    }
+}

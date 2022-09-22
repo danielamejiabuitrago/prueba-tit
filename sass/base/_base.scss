@@ -1,0 +1,42 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+html {
+    @include font-size($f-size);
+}
+body {
+    box-sizing: border-box;
+    font-family: "Questrial", sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+
+//## reset button tag
+button {
+	padding: 0;
+	font-family: $button-fontfamily;
+	font-size: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+a {
+	&.button {
+		text-decoration: none;
+	}
+}
+.button {
+	@include button;
+}
+
+.btn-action {
+	@include btn-action;
+}
+.btn-primary {
+	@include btn-primary;
+}
